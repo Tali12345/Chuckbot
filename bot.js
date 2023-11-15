@@ -15,11 +15,21 @@ function start_message(first_name) {
     )
 }
 
-function start() {
+function start(jokes) {
 
     bot.onText(/\/start/, (msg) => {
 
         bot.sendMessage(msg.chat.id, start_message(msg.from.first_name));
+        
+    });
+
+    bot.onText(/^[0-9]\d*/, (msg) => {
+        const jokeNumber = parseInt(msg.text)
+        if (jokeNumber>=1 && jokeNumber<=101) {
+            bot.sendMessage(msg.chat.id, msg.text+". "+jokes[jokeNumber-1]);
+        } else {
+            bot.sendMessage(msg.chat.id, "The number should be from 1 to 101");
+        }
         
     });
 }

@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const bot = require('./bot');
 
 const url = "https://parade.com/968666/parade/chuck-norris-jokes/";
 
@@ -35,17 +36,20 @@ const getQuotes = async () => {
 
       return text;
     });
+
   });
 
   // Display the jokes
-  console.log(jokes);
-  console.log(jokes.length);
+  //console.log(this.jokes);
+  //console.log(this.jokes.length);
 
   // Close the browser
   await browser.close();
+  console.log(jokes);
+  console.log(jokes.length);
+  return jokes;
 };
 
 // Start the scraping
 //getQuotes();
-
 module.exports = { getQuotes };

@@ -2,8 +2,10 @@ const bot = require('./bot');
 const extractJokes = require('./extractJokes');
 
 async function main() {
-    await extractJokes.getQuotes();
-    //bot.start();
+    const jokes = await extractJokes.getQuotes();
+    console.log(jokes);
+    console.log("123");
+    bot.start(jokes);
 }
 
 main();

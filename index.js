@@ -1,7 +1,9 @@
 const bot = require('./bot');
+const extractJokes = require('./extractJokes');
 
-function main() {
-    bot.start();
+async function main() {
+    await extractJokes.getQuotes();
+    //bot.start();
 }
 
 main();

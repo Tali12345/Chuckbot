@@ -38,9 +38,30 @@ async function translate(text, toLanguage) {
     }
 }
 
+async function fetchSupportedLanguages() {
+    try {
+      const response = await fetch(endpoint+"/languages?api-version=3.0", {
+        headers: {
+          'Ocp-Apim-Subscription-Key': key
+        }
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        const supportedLanguageSet = new Set(Object.keys(data.translation)); // Extract language codes and create a Set
+        return supportedLanguageSet;
+      } else {
+        throw new Error(`Request failed with status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Error fetching supported languages:', error);
+      return new Set(); // Return an empty Set in case of error
+    }
+  }
+
 function languageNameToCode(languageName) {
     const languageCode = ISO6391.getCode(languageName);
     return languageCode || null;
 }
 
-module.exports = { translate, languageNameToCode };
+module.exports = { translate, fetchSupportedLanguages, languageNameToCode };

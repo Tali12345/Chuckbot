@@ -8,6 +8,8 @@ async function main() {
         console.log(translation);
         const languageCode = translator.languageNameToCode('Spanish');
         console.log(languageCode);
+        const supportedLanguageSet = await translator.fetchSupportedLanguages();
+        console.log(supportedLanguageSet);
     } catch (error) {
         console.error(error);
     }

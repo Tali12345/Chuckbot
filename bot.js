@@ -6,6 +6,8 @@ const token = process.env.TELEGRAM_BOT_TOKEN;
 
 const bot = new TelegramBot(token, {polling: true});
 
+let currentLanguage = "en";
+
 function start_message(first_name) { 
     return(
         "Hello " + first_name + " 😀,\n" +
@@ -27,7 +29,8 @@ async function isValidLanguage(language) {
         if (!supportedLanguageSet.has(languageCode)) {
             return "Unsupported";
         } else {
-            const translation = await translator.translate("No problem", languageCode);
+            currentLanguage = languageCode;
+            const translation = await translator.translate("No problem", currentLanguage);
             return translation;
         }
     }
@@ -54,7 +57,8 @@ async function start(jokes) {
             if (!supportedLanguageSet.has(languageCode)) {
                 bot.sendMessage(msg.chat.id, "Unsupported language, use supported language for example 'set language hebrew'");
             } else {
-                const translation = (await translator.translate("No problem", languageCode));
+                currentLanguage = languageCode;
+                const translation = (await translator.translate("No problem", currentLanguage));
                 bot.sendMessage(msg.chat.id, translation);
             }
         }
@@ -63,13 +67,14 @@ async function start(jokes) {
         
     });
 
-    bot.onText(/^[0-9]\d*/, (msg) => {
+    bot.onText(/^[0-9]\d*/, async (msg) => {
         const jokeNumber = parseInt(msg.text)
+        let sendToUser = await translator.translate("The number should be from 1 to 101", currentLanguage);
         if (jokeNumber>=1 && jokeNumber<=101) {
-            bot.sendMessage(msg.chat.id, msg.text+". "+jokes[jokeNumber-1]);
-        } else {
-            bot.sendMessage(msg.chat.id, "The number should be from 1 to 101");
+            sendToUser = await translator.translate(msg.text+". "+jokes[jokeNumber-1], currentLanguage);
         }
+        bot.sendMessage(msg.chat.id, sendToUser);
+
         
     });
 }

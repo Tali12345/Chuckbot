@@ -38,13 +38,19 @@ async function isValidLanguage(language) {
 
 async function start(jokes) {
 
+    //bot.onText('message', (msg) => {
+    //    if (/\/start/.test(msg.text))
+
+
+   // }
+
     bot.onText(/\/start/, (msg) => {
 
         bot.sendMessage(msg.chat.id, start_message(msg.from.first_name));
         
     });
 
-    bot.onText(/^set language (.+)/, async (msg) => {
+    bot.onText(/^set language (.+)$/, async (msg) => {
         const userTextArray = msg.text.split(" ");
         const language = userTextArray[userTextArray.length - 1];
         console.log(language);
@@ -62,8 +68,6 @@ async function start(jokes) {
                 bot.sendMessage(msg.chat.id, translation);
             }
         }
-
-        bot.sendMessage(msg.chat.id, start_message(msg.from.first_name));
         
     });
 

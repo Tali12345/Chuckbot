@@ -1,5 +1,6 @@
 const axios = require('axios').default;
 const { v4: uuidv4 } = require('uuid');
+const ISO6391 = require('iso-639-1');
 
 let key = process.env.TRANSLATOR_KEY;
 let endpoint = "https://api.cognitive.microsofttranslator.com/";
@@ -37,4 +38,9 @@ async function translate(text, toLanguage) {
     }
 }
 
-module.exports = { translate };
+function languageNameToCode(languageName) {
+    const languageCode = ISO6391.getCode(languageName);
+    return languageCode || null;
+}
+
+module.exports = { translate, languageNameToCode };

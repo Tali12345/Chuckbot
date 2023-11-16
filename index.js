@@ -6,6 +6,8 @@ async function main() {
     try {
         const translation = await translator.translate("hello", "he");
         console.log(translation);
+        const languageCode = translator.languageNameToCode('Spanish');
+        console.log(languageCode);
     } catch (error) {
         console.error(error);
     }

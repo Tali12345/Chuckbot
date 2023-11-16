@@ -6,7 +6,7 @@ let endpoint = "https://api.cognitive.microsofttranslator.com/";
 
 // location, also known as region.
 // required if you're using a multi-service or regional (not global) resource. It can be found in the Azure portal on the Keys and Endpoint page.
-let location = "eastus";
+let location = process.env.TRANSLATOR_LOCATION;
 async function translate() {
     try {
         const response = await axios({

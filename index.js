@@ -3,7 +3,7 @@ const extractJokes = require('./extractJokes');
 const translator = require('./translator');
 
 async function main() {
-    try {
+    /**try {
         const translation = await translator.translate("hello", "he");
         console.log(translation);
         const languageCode = translator.languageNameToCode('Spanish');
@@ -12,11 +12,15 @@ async function main() {
         console.log(supportedLanguageSet);
     } catch (error) {
         console.error(error);
+    }*/
+    try {
+        const jokes = await extractJokes.getQuotes();
+        //console.log(jokes);
+        //console.log("123");
+        await bot.start(jokes);
+    } catch (error) {
+        console.error(error);
     }
-    //const jokes = await extractJokes.getQuotes();
-    //console.log(jokes);
-    //console.log("123");
-    //bot.start(jokes);
 }
 
 main();

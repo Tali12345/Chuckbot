@@ -1,5 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
 require("dotenv").config();
+const translator = require('./translator');
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
 
@@ -15,9 +16,48 @@ function start_message(first_name) {
     )
 }
 
-function start(jokes) {
+async function isValidLanguage(language) {
+    console.log(language);
+    const languageCode = translator.languageNameToCode(language);
+    console.log(languageCode);
+    if (languageCode==="null") {
+        return "Invalid";
+    } else {
+        const supportedLanguageSet = await translator.fetchSupportedLanguages();
+        if (!supportedLanguageSet.has(languageCode)) {
+            return "Unsupported";
+        } else {
+            const translation = await translator.translate("No problem", languageCode);
+            return translation;
+        }
+    }
+}
+
+async function start(jokes) {
 
     bot.onText(/\/start/, (msg) => {
+
+        bot.sendMessage(msg.chat.id, start_message(msg.from.first_name));
+        
+    });
+
+    bot.onText(/^set language (.+)/, async (msg) => {
+        const userTextArray = msg.text.split(" ");
+        const language = userTextArray[userTextArray.length - 1];
+        console.log(language);
+        const languageCode = translator.languageNameToCode(language);
+        console.log(languageCode);
+        if (languageCode==="null") {
+            bot.sendMessage(msg.chat.id, "Invalid language, use valid language for example 'set language hebrew'");
+        } else {
+            const supportedLanguageSet = await translator.fetchSupportedLanguages();
+            if (!supportedLanguageSet.has(languageCode)) {
+                bot.sendMessage(msg.chat.id, "Unsupported language, use supported language for example 'set language hebrew'");
+            } else {
+                const translation = (await translator.translate("No problem", languageCode));
+                bot.sendMessage(msg.chat.id, translation);
+            }
+        }
 
         bot.sendMessage(msg.chat.id, start_message(msg.from.first_name));
         

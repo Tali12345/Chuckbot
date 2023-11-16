@@ -31,7 +31,7 @@ async function translate(text, toLanguage) {
             }],
             responseType: 'json'
         })
-        return JSON.stringify(response.data, null, 4);
+        return response.data[0].translations[0].text;
     }
     catch (error) {
         return "Translation failed";

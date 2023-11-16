@@ -1,5 +1,4 @@
 const puppeteer = require('puppeteer');
-const bot = require('./bot');
 
 const url = "https://parade.com/968666/parade/chuck-norris-jokes/";
 

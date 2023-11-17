@@ -54,8 +54,8 @@ async function fetchSupportedLanguages() {
         throw new Error(`Request failed with status: ${response.status}`);
       }
     } catch (error) {
-      console.error('Error fetching supported languages:', error);
-      return new Set(); // Return an empty Set in case of error
+        console.error('Error fetching supported languages:', error);
+        return new Set(); // Return an empty Set in case of error
     }
   }
 

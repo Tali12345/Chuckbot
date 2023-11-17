@@ -44,8 +44,6 @@ const getQuotes = async () => {
 
   // Close the browser
   await browser.close();
-  console.log(jokes);
-  console.log(jokes.length);
   return jokes;
 };
 

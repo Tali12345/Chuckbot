@@ -38,15 +38,9 @@ const getQuotes = async () => {
 
   });
 
-  // Display the jokes
-  //console.log(this.jokes);
-  //console.log(this.jokes.length);
-
   // Close the browser
   await browser.close();
   return jokes;
 };
 
-// Start the scraping
-//getQuotes();
 module.exports = { getQuotes };

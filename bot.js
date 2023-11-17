@@ -18,7 +18,7 @@ class Bot {
             "Hello " + msg.from.first_name + " 😀,\n" +
             "I'm Chuck Norris Bot. I support those options:\n" + 
             "1. You can choose language by using the command 'set language [chosen language]'\n" +
-            "2. You can enter a number from 1 to 101, and I'll tell you this joke\n" + 
+            "2. You can enter a number from 1 to "+this.jokes.length.toString()+", and I'll tell you this joke\n" + 
             "Have fun! 🤣"
         )
     }
@@ -40,10 +40,10 @@ class Bot {
 
     async GetJoke(msg) {
         const jokeNumber = parseInt(msg.text);
-        if (jokeNumber>=1 && jokeNumber<=101) {
+        if (jokeNumber>=1 && jokeNumber<=this.jokes.length) {
             return msg.text+". "+this.jokes[jokeNumber-1];
         }
-        return "The number should be from 1 to 101";
+        return "The number should be from 1 to "+this.jokes.length.toString();
     }
 
     async botResponse() {
@@ -59,7 +59,7 @@ class Bot {
                 response = await this.GetJoke(msg);
             } 
             else {
-                response = "Enter 'set language [chosen language]' or a number from 1 to 101";
+                response = "Enter 'set language [chosen language]' or a number from 1 to "+this.jokes.length.toString();
             }
             const translatedResponse = await translator.translate(response, this.currentLanguage);
             bot.sendMessage(msg.chat.id, translatedResponse);

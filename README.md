@@ -18,3 +18,7 @@ The service is hosted in the cloud.
 5. Run `node index.js` then the server will run.
 6. Open [t.me/the_chuck_norris_bot](t.me/the_chuck_norris_bot).
 7. Write `/start` in the chat in order to start the chat with the bot.
+
+You can also build an image from the Dockerfile and run the container by:
+1. Run `Docker build -t app .`
+2. Run `Docker run app`

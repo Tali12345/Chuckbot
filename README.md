@@ -14,6 +14,7 @@ The service is hosted in the cloud.
 1. Run `git clone https://github.com/Tali12345/Chuckbot.git`.
 2. Run `cd Chuckbot`.
 3. Run `npm install`.
-4. Run `node index.js` then the server will run.
-5. Open [t.me/the_chuck_norris_bot](t.me/the_chuck_norris_bot).
-6. Write `/start` in the chat in order to start the chat with the bot.
+4. Add .env file with the keys.
+5. Run `node index.js` then the server will run.
+6. Open [t.me/the_chuck_norris_bot](t.me/the_chuck_norris_bot).
+7. Write `/start` in the chat in order to start the chat with the bot.

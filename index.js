@@ -3,7 +3,7 @@ const extractJokes = require('./extractJokes');
 
 async function main() {
     try {
-        const jokes = await extractJokes.getQuotes();
+        const jokes = await extractJokes.extractChuckNorrisJokes();
         console.log("The jokes were extracted successfully");
         const chuckBot = new Bot(jokes);
         console.log("The bot is ready")

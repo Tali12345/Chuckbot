@@ -1,46 +1,41 @@
-const puppeteer = require('puppeteer');
+const axios = require('axios');
+const cheerio = require('cheerio');
 
-const url = "https://parade.com/968666/parade/chuck-norris-jokes/";
+const url = 'https://parade.com/968666/parade/chuck-norris-jokes/';
 
-const getQuotes = async () => {
-  // Start a Puppeteer session with:
-  // - a visible browser (`headless: false` - easier to debug because you'll see the browser in action)
-  // - no default viewport (`defaultViewport: null` - website page will be in full width and height)
-  const browser = await puppeteer.launch({
-    headless: false,
-    defaultViewport: null,
-  });
+async function extractChuckNorrisJokes() {
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Referer': 'https://www.google.com/', // The website that referred the user to this page
+        'Sec-Fetch-Dest': 'document',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-Site': 'cross-site',
+      },
+    });
+    const html = response.data;
 
-  // Open a new page
-  const page = await browser.newPage();
+    const $ = cheerio.load(html);
 
-  // On this new page:
-  // - open the website at the url
-  // - wait until the dom content is loaded (HTML is ready)
-  await page.goto(url, {
-    waitUntil: "domcontentloaded",
-  });
+    // Array to store the Chuck Norris jokes
+    const chuckNorrisJokes = [];
 
-  // Get page data
-  const jokes = await page.evaluate(() => {
-
-    const jokesList = document.querySelectorAll("ol li");
-
-    // Convert the jokesList to an iterable array
-    // For each joke li element fetch the text
-    return Array.from(jokesList).map((joke) => {
-      // Fetch the sub-elements from the previously fetched joke element
-      // Get the displayed text and return it (`.innerText`)
-      const text = joke.innerText;
-
-      return text;
+    // Extracting jokes from the webpage
+    $('ol').find('li').each((index, element) => {
+      const joke = $(element).text().trim();
+      chuckNorrisJokes.push(joke);
     });
 
-  });
+    // Returning the jokes array
+    return chuckNorrisJokes;
+  } catch (error) {
+    console.error('Error:', error);
+    return []; // Return an empty array in case of an error
+  }
+}
 
-  // Close the browser
-  await browser.close();
-  return jokes;
-};
 
-module.exports = { getQuotes };
+module.exports = { extractChuckNorrisJokes };

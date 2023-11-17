@@ -5,8 +5,9 @@
 - **Telegram Bot** (bot.js): the project uses `node-telegram-bot-api` to manage the interactions with the user in Telegram
     - If the user enters `/start` the bot will response with the start message explaining the user his options
     - If the user enters `set language [chosen language]` the bot set the current language to the language the user chose.
-    - If the user enters a number from 1 to 101, the bot tells the corresponding joke in the language the user chose.
-- **Translator** (translator.js): use **Azure Translator API** - translates the text from English to the target language, returns all the supported languages and converts the language into the corresponding language code
+    - If the user enters `a number from 1 to 101`, the bot tells the corresponding joke in the language the user chose.
+- **Translator** (translator.js): use **Azure Translator API** - translates the text from English to the target language, returns all the supported languages and converts the language into the corresponding language code.
+
 The service is hosted in the cloud.
 
 ## How to Run Locally?

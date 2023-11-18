@@ -1,7 +1,7 @@
 # Chuckbot
 
 ## How to Connect to the Bot
-Enter [t.me/the_chuck_norris_bot](t.me/the_chuck_norris_bot), then in the chat enter `/start` to start the chat with the bot
+Enter [t.me/the_chuck_norris_bot](https://t.me/the_chuck_norris_bot), then in the chat enter `/start` to start the chat with the bot
 
 ## Screenshot
 ![chuckbot screenshot](chuckbot.png)

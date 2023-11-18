@@ -23,7 +23,7 @@ There is no need to run the service locally because the service is already hoste
 3. Run `npm install`.
 4. Add .env file with the keys: TELEGRAM_BOT_TOKEN, TRANSLATOR_KEY, TRANSLATOR_LOCATION
 5. Run `node index.js` then the server will run.
-6. Open [t.me/the_chuck_norris_bot](t.me/the_chuck_norris_bot).
+6. Open [t.me/the_chuck_norris_bot](https://t.me/the_chuck_norris_bot).
 7. Write `/start` in the chat in order to start the chat with the bot.
 
 You can also build an image from the Dockerfile and run the container by:
